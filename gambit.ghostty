@@ -1,0 +1,36 @@
+# Dedicated ghostty config for gambit — its own domain, independent of the
+# global config. Launched via ~/.local/bin/gambit with --config-default-files=false
+# so NONE of the global settings (shaders, minimum-contrast, single-instance) leak in.
+
+# Fonts: primary mono + monochrome symbol fallback so chess glyphs render as
+# real text shapes (and respect colour) instead of colour-emoji.
+font-family = JetBrainsMono Nerd Font
+font-family = Noto Sans Symbols 2
+font-family-bold = JetBrainsMono Nerd Font
+font-family-bold = Noto Sans Symbols 2
+font-size = 24
+font-style-bold = ExtraBold
+
+# CRITICAL: no contrast clamping — let gambit's exact piece colours through
+# (the global config's minimum-contrast=4.5 was turning white pieces dark).
+minimum-contrast = 1
+
+# Clean board surface — no shaders, no blur, solid dark background.
+background = #0b0d14
+background-opacity = 1
+foreground = #eef1f7
+cursor-style = block
+window-padding-x = 14
+window-padding-y = 12
+window-padding-balance = true
+
+# Its own window, not a tab in the running instance.
+gtk-single-instance = false
+confirm-close-surface = false
+title = gambit
+class = chess.gambit
+
+# Run the app directly; window closes when you quit gambit.
+# install.sh rewrites this line to absolute paths for your checkout
+# (into .gambit.local.ghostty); ${HOME}/chess-tui is the documented default.
+command = ${HOME}/chess-tui/.venv/bin/python ${HOME}/chess-tui/gambit.py
